@@ -60,10 +60,14 @@ class RobotTwoWheel(RobotBase):
 		l  = self.radius
 		
 		"*** YOUR CODE STARTS HERE ***"
-		
-
-
-
+		omega = (vel[0]-vel[1])*r/(2*l)
+		next_state = np.zeros_like(state)
+		r_icr = (vel[1]+vel[0])*l/(vel[1]-vel[0]+1e-10)
+		x_icr = state[0] + r_icr*sin(state[2])
+		y_icr = state[1] - r_icr*cos(state[2])
+		next_state[0] = x_icr + cos(omega*dt)*(state[0]-x_icr) - sin(omega*dt)*(state[1]-y_icr)
+		next_state[1] = y_icr + sin(omega*dt)*(state[0]-x_icr) + cos(omega*dt)*(state[1]-y_icr)
+		next_state[2] = state[2] + omega * dt
 		"*** YOUR CODE ENDS HERE ***"
 		return next_state
 
@@ -92,9 +96,7 @@ class RobotTwoWheel(RobotBase):
 		noise = np.random.normal(0, R)
 		
 		"*** YOUR CODE STARTS HERE ***"
-		
-
-
+		next_state = self.dynamics_without_noise(state=state, vel=vel) + noise
 		"*** YOUR CODE ENDS HERE ***"
 		
 		return next_state
@@ -124,9 +126,9 @@ class RobotTwoWheel(RobotBase):
 		noise = np.random.normal(0, R)
 		
 		"*** YOUR CODE STARTS HERE ***"
-		
-
-
+		vel += noise[0] * np.ones_like(vel)
+		state[2] += noise[1]
+		next_state = self.dynamics_without_noise(state=state, vel=vel)
 		"*** YOUR CODE ENDS HERE ***"
 		
 		return next_state
@@ -158,6 +160,7 @@ class RobotTwoWheel(RobotBase):
 		path_length = 0
 		
 		"*** YOUR CODE STARTS HERE ***"
+		
 
 
 
