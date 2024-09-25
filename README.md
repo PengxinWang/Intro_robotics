@@ -1,1 +1,2 @@
-Please see `doc/guideline.pdf` for instructions.
+# Intro_robotics
+HKU course, intro to robots
