@@ -70,7 +70,7 @@ class RobotTwoWheel(RobotBase):
 		next_state[2] = state[2] + omega * dt
 		"*** YOUR CODE ENDS HERE ***"
 		return next_state
-
+	
 
 	def dynamics_with_linear_noise(self, state, vel, **kwargs):
 		r"""
@@ -160,11 +160,9 @@ class RobotTwoWheel(RobotBase):
 		path_length = 0
 		
 		"*** YOUR CODE STARTS HERE ***"
-		
-
-
-
-		
+		timepoints = [pi, pi + 1e-1]
+		instructions = [[(1-l)/r, (1+l)/r], [(1+l)/r,(1-l)/r]]		
+		path_length = pi
 		"*** YOUR CODE ENDS HERE ***"
 		
 		return instructions, timepoints, path_length
